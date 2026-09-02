@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ćwiczenia — English Grammar</title>
+<meta name="description" content="Zestaw mieszany z czterech czasów Present: luki, wybór czasu z kontekstu i wyłapywanie utrwalonych błędów, z wyjaśnieniem po każdej odpowiedzi.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav__brand" href="index.html">English <span>Grammar</span></a>
+  <div class="topnav__links">
+    <a href="index.html">Spis treści</a>
+    <a href="czasy/porownanie.html">Porównanie czasów</a>
+    <a href="cwiczenia.html" aria-current="page">Ćwiczenia</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Ćwiczenia</p>
+  <h1>Zestaw mieszany</h1>
+  <p class="lead">
+    Wszystkie cztery czasy naraz — bez podpowiedzi, który to. Najpierw
+    rozpoznaj sytuację, potem wybierz formę. Wynik i postęp zapisują się w
+    przeglądarce.
+  </p>
+</header>
+
+<main class="page">
+
+  <h2>Powtórka pojedynczych czasów</h2>
+  <div class="card-grid">
+    <a class="card" href="czasy/present-simple.html"><h3>Present Simple</h3><p>Ćwiczenia na tej stronie.</p><span class="card__more">Otwórz →</span></a>
+    <a class="card" href="czasy/present-continuous.html"><h3>Present Continuous</h3><p>Ćwiczenia na tej stronie.</p><span class="card__more">Otwórz →</span></a>
+    <a class="card" href="czasy/present-perfect.html"><h3>Present Perfect</h3><p>Ćwiczenia na tej stronie.</p><span class="card__more">Otwórz →</span></a>
+    <a class="card" href="czasy/present-perfect-continuous.html"><h3>Present Perfect Continuous</h3><p>Ćwiczenia na tej stronie.</p><span class="card__more">Otwórz →</span></a>
+  </div>
+
+  <h2>Test mieszany</h2>
+  <div id="ex"></div>
+
+  <nav class="site-nav">
+    <a href="index.html">← Spis treści</a>
+    <span class="site-nav__spacer"></span>
+    <a href="czasy/porownanie.html">Porównanie czasów</a>
+  </nav>
+
+</main>
+
+<footer>
+  <p>Moduł 1 · Czasy teraźniejsze · <a href="index.html">spis treści</a></p>
+</footer>
+
+<script src="assets/js/timeline.js"></script>
+<script src="assets/js/exercises.js"></script>
+<script>
+EG.mountExercises(document.getElementById('ex'), {
+  id: 'mixed-present',
+  title: 'Test mieszany: cztery czasy Present',
+  intro: 'Kontekst po polsku podpowiada sytuację, ale nie nazwę czasu.',
+  items: [
+    {
+      type: 'gap',
+      ctx: 'Nawyk twojego ojca — przeczenie.',
+      q: 'My father ___ coffee.',
+      hint: '(not / drink)',
+      answers: ['doesn’t drink', "doesn't drink", 'does not drink', 'doesnt drink'],
+      why: 'Rutyna, trzecia osoba, przeczenie → doesn’t + bezokolicznik.'
+    },
+    {
+      type: 'choice',
+      ctx: 'Stała umiejętność.',
+      q: 'She ___ three instruments.',
+      options: ['plays', 'is playing'],
+      answer: 0,
+      why: 'Stała cecha, nie czynność w toku → Present Simple.'
+    },
+    {
+      type: 'error',
+      ctx: 'Czasownik be przy „we”.',
+      sentence: 'We is having dinner now.',
+      wrongIndex: 1,
+      fix: 'are',
+      why: 'we → are. („have dinner” = jeść — tu forma continuous jest w porządku.)'
+    },
+    {
+      type: 'gap',
+      ctx: 'Powód, dla którego masz być cicho — teraz.',
+      q: 'Be quiet, the baby ___.',
+      hint: '(sleep)',
+      answers: ['is sleeping', "'s sleeping", 's sleeping'],
+      why: 'Czynność w tej chwili → am/is/are + -ing.'
+    },
+    {
+      type: 'choice',
+      ctx: 'Bilety już kupione — plan ustalony.',
+      q: 'We ___ to Rome next weekend.',
+      options: ['go', 'are going', 'have gone'],
+      answer: 1,
+      why: 'Ustalony plan na najbliższą przyszłość → Present Continuous.'
+    },
+    {
+      type: 'choice',
+      ctx: 'Zawartość pudełka — stan.',
+      q: 'This box ___ old photos.',
+      options: ['is containing', 'contains'],
+      answer: 1,
+      why: '„contain” to czasownik stanowy — nigdy w formie -ing.'
+    },
+    {
+      type: 'error',
+      ctx: 'Pytanie w trzeciej osobie.',
+      sentence: 'Does your brother lives with you?',
+      wrongIndex: 3,
+      fix: 'live',
+      why: 'Po „Does” czasownik główny wraca do bezokolicznika bez -s.'
+    },
+    {
+      type: 'choice',
+      ctx: 'Najlepsza książka w twoim życiu — doświadczenie bez daty.',
+      q: 'That’s the best book I ___.',
+      options: ['read', 'have ever read'],
+      answer: 1,
+      why: 'Po konstrukcji „the best … (that) I …” z doświadczeniem życiowym → Present Perfect.'
+    },
+    {
+      type: 'choice',
+      ctx: '„in 2019” — podany zamknięty rok.',
+      q: 'They ___ their house in 2019.',
+      options: ['have bought', 'bought'],
+      answer: 1,
+      why: 'Określony moment w przeszłości → Past Simple.'
+    },
+    {
+      type: 'gap',
+      ctx: 'Skutek teraz: nie możesz do nikogo zadzwonić.',
+      q: 'I ___ my phone.',
+      hint: '(lose)',
+      answers: ['have lost', "'ve lost", 've lost'],
+      why: 'Liczy się skutek w tej chwili → Present Perfect. lose → lost (trzecia forma).'
+    },
+    {
+      type: 'error',
+      ctx: 'Forma imiesłowu po „has”.',
+      sentence: 'He has never drove a truck.',
+      wrongIndex: 3,
+      fix: 'driven',
+      why: 'drive → drove → driven. Po „has” trzecia forma: driven.'
+    },
+    {
+      type: 'error',
+      ctx: 'Forma czasownika w pytaniu Present Perfect.',
+      sentence: 'Have you finish your homework?',
+      wrongIndex: 2,
+      fix: 'finished',
+      why: 'Have + you + trzecia forma. „Have you finished…?”'
+    },
+    {
+      type: 'choice',
+      ctx: 'Zmęczenie teraz po długiej czynności przez cały tydzień.',
+      q: 'I’m tired because I ___ hard all week.',
+      options: ['have worked', 'have been working'],
+      answer: 1,
+      why: 'Nacisk na proces i długość + świeży skutek → Present Perfect Continuous.'
+    },
+    {
+      type: 'gap',
+      ctx: 'Pracuje tu od maja, nadal. (obie formy są tu naturalne)',
+      q: 'She ___ here since May.',
+      hint: '(work)',
+      answers: ['has been working', "'s been working", 's been working', 'has worked', "'s worked", 's worked'],
+      why: 'Z „work/live/study” + since obie formy są równoważne. Perfect Continuous podkreśla długość.'
+    },
+    {
+      type: 'error',
+      ctx: 'Forma czasownika po „been”.',
+      sentence: 'I have been wait for an hour.',
+      wrongIndex: 3,
+      fix: 'waiting',
+      why: 'have + been + -ing. „I have been waiting for an hour.”'
+    },
+    {
+      type: 'error',
+      ctx: '„od” + liczba — dobierz przyimek.',
+      sentence: 'She has been studying English since three years.',
+      wrongIndex: 5,
+      fix: 'for',
+      why: 'for + długość (for three years), since + punkt startu (since 2021).'
+    },
+    {
+      type: 'choice',
+      ctx: 'Słyszysz to w tej chwili.',
+      q: 'Listen! Someone ___ the piano.',
+      options: ['plays', 'is playing'],
+      answer: 1,
+      why: 'Czynność słyszana teraz → Present Continuous.'
+    },
+    {
+      type: 'error',
+      ctx: 'Nie każde zdanie ma błąd — zaznacz, jeśli jest poprawne.',
+      sentence: 'She has lived in Rome since 2015.',
+      wrongIndex: -1,
+      why: 'Poprawne: Present Perfect z „since” dla stanu, który zaczął się w przeszłości i trwa do teraz.'
+    },
+    {
+      type: 'contrast',
+      a: { sentence: 'I’ve been reading about it.', meaning: 'O samej czynności — zajmowałem się tym, może wciąż.' },
+      b: { sentence: 'I’ve read about it.', meaning: 'Skończone — wiem to, mam wiedzę.' },
+      labels: ['Perfect Continuous', 'Perfect Simple']
+    }
+  ]
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Który czas wybrać? — English Grammar</title>
+<meta name="description" content="Porównanie czterech czasów Present: pytania decyzyjne, pary kontrastowe, przełączana oś czasu i quiz diagnostyczny.">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav__brand" href="../index.html">English <span>Grammar</span></a>
+  <div class="topnav__links">
+    <a href="../index.html">Spis treści</a>
+    <a href="porownanie.html" aria-current="page">Porównanie czasów</a>
+    <a href="../cwiczenia.html">Ćwiczenia</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Porównanie</p>
+  <h1>Który czas wybrać?</h1>
+  <p class="lead">
+    Wybór czasu to seria prostych pytań, nie recytowanie definicji. Poniżej
+    pytania decyzyjne, pary zdań różniące się tylko czasem i quiz na koniec.
+  </p>
+</header>
+
+<main class="page">
+
+  <h2>Present Simple czy Present Continuous?</h2>
+  <div class="rule">
+    <p class="rule__label">Pytanie decyzyjne</p>
+    <p>
+      <strong>Ogólnie / zawsze / w kółko</strong> → Present Simple.<br>
+      <strong>Teraz / tymczasowo / w tym okresie</strong> → Present Continuous.<br>
+      Czasownik jest <strong>stanowy</strong> (<span lang="en">know, want, like…</span>)?
+      → i tak Present Simple.
+    </p>
+  </div>
+
+  <div id="cmp-simple-cont"></div>
+
+  <h2>Present Perfect czy Present Perfect Continuous?</h2>
+  <div class="rule">
+    <p class="rule__label">Pytanie decyzyjne</p>
+    <p>
+      <strong>Wynik / ilość / „ile zrobione”</strong> → Present Perfect.<br>
+      <strong>Sam proces / „jak długo” / świeży skutek</strong> → Present Perfect Continuous.<br>
+      Czasownik <strong>stanowy</strong>? → tylko Present Perfect (Simple).
+    </p>
+  </div>
+
+  <div id="cmp-perf"></div>
+
+  <h2>Teraźniejszy czy Perfect? Pułapka „od”</h2>
+  <div class="rule">
+    <p class="rule__label">Pytanie decyzyjne</p>
+    <p>
+      Sytuacja <strong>zaczęła się w przeszłości i trwa do teraz</strong>
+      (<span lang="en">for</span> / <span lang="en">since</span>) → Present
+      Perfect albo Perfect Continuous — <strong>nigdy</strong> Present Simple
+      ani Present Continuous, mimo że po polsku jest czas teraźniejszy.
+    </p>
+  </div>
+
+  <div id="cmp-since"></div>
+
+  <h2>Wszystkie cztery na osi czasu</h2>
+  <p class="muted">Przełącz czas i zobacz, gdzie „siada” na osi.</p>
+  <div data-timeline="present-simple" data-switcher></div>
+
+  <h2>Quiz diagnostyczny</h2>
+  <div id="quiz"></div>
+
+  <nav class="site-nav">
+    <a href="present-perfect-continuous.html">← Present Perfect Continuous</a>
+    <span class="site-nav__spacer"></span>
+    <a href="../cwiczenia.html">Zestaw mieszany →</a>
+  </nav>
+
+</main>
+
+<footer>
+  <p>Moduł 1 · Czasy teraźniejsze · <a href="../index.html">spis treści</a></p>
+</footer>
+
+<script src="../assets/js/timeline.js"></script>
+<script src="../assets/js/exercises.js"></script>
+<script>
+EG.mountExercises(document.getElementById('cmp-simple-cont'), {
+  id: 'cmp-simple-cont',
+  title: 'Pary kontrastowe: Simple vs Continuous',
+  items: [
+    {
+      type: 'contrast',
+      a: { sentence: 'What do you do?', meaning: 'Czym się zajmujesz zawodowo? (praca, w ogóle)' },
+      b: { sentence: 'What are you doing?', meaning: 'Co robisz w tej chwili?' },
+      labels: ['Present Simple', 'Present Continuous']
+    },
+    {
+      type: 'contrast',
+      a: { sentence: 'He works in Berlin.', meaning: 'Na stałe — tam jest jego praca.' },
+      b: { sentence: 'He’s working in Berlin.', meaning: 'Tymczasowo — np. oddelegowany na kilka miesięcy.' },
+      labels: ['Present Simple', 'Present Continuous']
+    },
+    {
+      type: 'contrast',
+      a: { sentence: 'She doesn’t drink coffee.', meaning: 'Nigdy — taki ma nawyk.' },
+      b: { sentence: 'She isn’t drinking coffee.', meaning: 'Nie w tej chwili — akurat teraz nie pije.' },
+      labels: ['Present Simple', 'Present Continuous']
+    }
+  ]
+});
+
+EG.mountExercises(document.getElementById('cmp-perf'), {
+  id: 'cmp-perf',
+  title: 'Pary kontrastowe: Perfect vs Perfect Continuous',
+  items: [
+    {
+      type: 'contrast',
+      a: { sentence: 'I’ve read the report.', meaning: 'Skończone — znam treść, jest wynik.' },
+      b: { sentence: 'I’ve been reading the report.', meaning: 'O samej czynności — może jeszcze nie skończyłem.' },
+      labels: ['Perfect', 'Perfect Continuous']
+    },
+    {
+      type: 'contrast',
+      a: { sentence: 'I’ve painted three rooms.', meaning: 'Ilość / rezultat — trzy pokoje gotowe.' },
+      b: { sentence: 'I’ve been painting all day.', meaning: 'Czym się zajmowałem i jak długo — bez podawania ilości.' },
+      labels: ['Perfect', 'Perfect Continuous']
+    },
+    {
+      type: 'contrast',
+      a: { sentence: 'He’s gone to Paris.', meaning: 'Pojechał i nadal tam jest.' },
+      b: { sentence: 'He’s been to Paris.', meaning: 'Był i wrócił — albo ma to w doświadczeniu.' },
+      labels: ['gone', 'been']
+    }
+  ]
+});
+
+EG.mountExercises(document.getElementById('cmp-since'), {
+  id: 'cmp-since',
+  title: 'Pary kontrastowe: pułapka „od”',
+  items: [
+    {
+      type: 'contrast',
+      a: { sentence: 'I live here. (fakt)', meaning: 'Present Simple — sam fakt zamieszkania, bez długości.' },
+      b: { sentence: 'I’ve lived here for ten years.', meaning: 'Z „for/since” — od przeszłości do teraz → Present Perfect. Nie „I live here for ten years”.' },
+      labels: ['bez „od”', 'z „od”']
+    },
+    {
+      type: 'contrast',
+      a: { sentence: 'I’m waiting. (teraz)', meaning: 'Present Continuous — czynność w tej chwili.' },
+      b: { sentence: 'I’ve been waiting since nine.', meaning: 'Z „since” — czekanie zaczęło się w przeszłości i trwa → Perfect Continuous. Nie „I’m waiting since nine”.' },
+      labels: ['bez „od”', 'z „od”']
+    }
+  ]
+});
+
+EG.mountExercises(document.getElementById('quiz'), {
+  id: 'porownanie-quiz',
+  title: 'Quiz: wybierz właściwy czas',
+  intro: 'Po każdej odpowiedzi przeczytaj „dlaczego”.',
+  items: [
+    {
+      type: 'choice',
+      ctx: 'Codzienny sposób dojazdu.',
+      q: 'She ___ to work by bike every day.',
+      options: ['goes', 'is going', 'has gone'],
+      answer: 0,
+      why: 'Rutyna, „every day” → Present Simple.'
+    },
+    {
+      type: 'choice',
+      ctx: 'Widzisz to przez okno teraz.',
+      q: 'Look — she ___ down the street!',
+      options: ['runs', 'is running'],
+      answer: 1,
+      why: 'Czynność w tej chwili → Present Continuous.'
+    },
+    {
+      type: 'choice',
+      ctx: 'Zatrudniony od 2018, nadal.',
+      q: 'He ___ for this company since 2018.',
+      options: ['works', 'has worked'],
+      answer: 1,
+      why: '„since 2018” + trwa do teraz → Present Perfect. „He works … since 2018” to błąd.'
+    },
+    {
+      type: 'choice',
+      ctx: '„yesterday” — zamknięty czas przeszły.',
+      q: 'I ___ a great film yesterday.',
+      options: ['have seen', 'saw'],
+      answer: 1,
+      why: 'Określony moment w przeszłości → Past Simple, nie Present Perfect.'
+    },
+    {
+      type: 'choice',
+      ctx: 'Jesteś brudny i zmęczony — długa czynność, dopiero co.',
+      q: 'I’m exhausted — I ___ in the garden all afternoon.',
+      options: ['have worked', 'have been working'],
+      answer: 1,
+      why: 'Nacisk na proces i długość + świeży skutek → Present Perfect Continuous.'
+    },
+    {
+      type: 'choice',
+      ctx: 'Podajesz liczbę zrobionych rzeczy.',
+      q: 'I ___ five emails this morning.',
+      options: ['have been writing', 'have written'],
+      answer: 1,
+      why: 'Ilość / rezultat → Present Perfect Simple.'
+    },
+    {
+      type: 'error',
+      ctx: 'Trzecia osoba, przeczenie.',
+      sentence: 'She don’t like tea.',
+      wrongIndex: 1,
+      fix: 'doesn’t',
+      why: 'he / she / it → doesn’t.'
+    },
+    {
+      type: 'error',
+      ctx: 'Forma czasownika po „have”.',
+      sentence: 'I have went to the shops.',
+      wrongIndex: 2,
+      fix: 'gone',
+      why: 'Po have/has idzie trzecia forma: go → gone.'
+    },
+    {
+      type: 'error',
+      ctx: 'Czasownik be w liczbie mnogiej.',
+      sentence: 'They is watching TV.',
+      wrongIndex: 1,
+      fix: 'are',
+      why: 'they → are.'
+    }
+  ]
+});
+</script>
+
+</body>
+</html>
