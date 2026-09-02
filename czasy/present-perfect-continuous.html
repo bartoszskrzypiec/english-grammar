@@ -15,6 +15,8 @@
     <a href="../index.html">Spis treści</a>
     <a href="porownanie.html">Porównanie czasów</a>
     <a href="../cwiczenia.html">Ćwiczenia</a>
+    <a href="../bledy.html">Muzeum błędów</a>
+    <a href="../przyklady.html">Bank zdań</a>
   </div>
 </nav>
 
@@ -192,84 +194,13 @@
 
 <script src="../assets/js/timeline.js"></script>
 <script src="../assets/js/exercises.js"></script>
+<script src="../assets/js/data/present.js"></script>
 <script>
 EG.mountExercises(document.getElementById('ex'), {
   id: 'present-perfect-continuous',
   title: 'Ćwiczenia: Present Perfect Continuous',
   intro: 'Pytaj siebie: czy chodzi o proces i długość (Continuous), czy o wynik i ilość (Simple)?',
-  items: [
-    {
-      type: 'gap',
-      ctx: 'Ile czasu trwa twoja nauka — do teraz.',
-      q: 'I ___ for two hours.',
-      hint: '(study)',
-      answers: ['have been studying', "'ve been studying", 've been studying'],
-      why: 'have/has + been + -ing. „I have been studying for two hours.”'
-    },
-    {
-      type: 'choice',
-      ctx: 'Jesteś przemoczony — dopiero co przestało.',
-      q: 'Why are you so wet? — I ___ in the rain.',
-      options: ['have run', 'have been running', 'run'],
-      answer: 1,
-      why: 'Świeży skutek + nacisk na samą czynność → Present Perfect Continuous.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Znasz go od studiów — to stan.',
-      q: 'I ___ him since college.',
-      options: ['have been knowing', 'have known'],
-      answer: 1,
-      why: '„know” to czasownik stanowy — nie ma formy continuous. „Od kiedy” wyraża Present Perfect Simple.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Podajesz liczbę — ile rozdziałów.',
-      q: 'I ___ three chapters today.',
-      options: ['have been reading', 'have read'],
-      answer: 1,
-      why: 'Ilość / rezultat → Present Perfect Simple. Continuous podkreślałby sam proces, nie liczbę.'
-    },
-    {
-      type: 'error',
-      ctx: 'Sprawdź formę czasownika głównego.',
-      sentence: 'I have been study English for years.',
-      wrongIndex: 3,
-      fix: 'studying',
-      why: 'Po „have been” idzie forma -ing: „I have been studying English for years.”'
-    },
-    {
-      type: 'error',
-      ctx: 'To samo — forma czasownika po „been”.',
-      sentence: 'She has been work here since May.',
-      wrongIndex: 3,
-      fix: 'working',
-      why: 'have/has + been + -ing: „She has been working here since May.”'
-    },
-    {
-      type: 'error',
-      ctx: 'Czegoś brakuje w konstrukcji.',
-      sentence: 'I have waiting for the bus.',
-      wrongIndex: 2,
-      fix: 'been waiting',
-      why: 'Brakuje „been”. Kolejność: have + been + -ing → „I have been waiting for the bus.”'
-    },
-    {
-      type: 'choice',
-      ctx: 'Padasz z nóg, bo długo coś robiłeś.',
-      q: 'I’m exhausted. I ___ the house all day.',
-      options: ['have been cleaning', 'clean', 'am cleaning'],
-      answer: 0,
-      why: 'Długa czynność do teraz + widoczne zmęczenie → Present Perfect Continuous.'
-    },
-    {
-      type: 'contrast',
-      a: { sentence: 'I’ve been painting the kitchen.', meaning: 'O samej czynności — być może niedokończonej. Stąd bałagan i zapach farby.' },
-      b: { sentence: 'I’ve painted the kitchen.', meaning: 'Skończone. Kuchnia jest pomalowana — jest wynik.' },
-      labels: ['Perfect Continuous', 'Perfect Simple'],
-      note: 'Continuous = proces, Simple = rezultat.'
-    }
-  ]
+  items: EG.bank('present-perfect-continuous')
 });
 </script>
 

@@ -44,13 +44,19 @@ działać też otwarte przez `file://` (dwuklik), bez serwera. Nie zamieniaj na
 ## Struktura
 
 ```
-index.html                     spis treści (kafle .card)
+index.html                     hub (kafle .card: moduł, ćwiczenia, do czytania, roadmapa)
 czasy/<nazwa-czasu>.html        jedna strona = jeden czas
 czasy/porownanie.html           pary kontrastowe + oś z przełącznikiem + quiz
-cwiczenia.html                  test mieszany
+cwiczenia.html                  test mieszany (bankPick) + „Powtórka błędów” (mountReview)
+bledy.html                      Muzeum błędów (filtrowana lista)
+przyklady.html                  Bank zdań (filtrowana lista)
 assets/css/style.css            jedyny arkusz
 assets/js/timeline.js           window.EG.mountTimeline
-assets/js/exercises.js          window.EG.mountExercises
+assets/js/exercises.js          window.EG.mountExercises / bank / mountReview
+assets/js/reading.js            window.EG.mountList
+assets/js/data/present.js       bank zadań Moduł 1 (EG.registerItems)
+assets/js/data/bledy.js         window.EG_BLEDY  (Muzeum błędów)
+assets/js/data/przyklady.js     window.EG_PRZYKLADY  (Bank zdań)
 ```
 
 Folder `czasy/` po polsku; pliki po angielsku (nazwy własne czasów).
@@ -65,7 +71,8 @@ Strony w `czasy/` linkują do `../assets/...`, `../index.html`,
 4. „Kiedy używać” — przypadki, każdy z `.eg`
 5. „Markery czasu”
 6. „Częste błędy (kalka z polskiego)” — `.pitfall` × kilka
-7. „Ćwiczenia” — `<div id="ex"></div>` + `EG.mountExercises(...)` w `<script>` na końcu
+7. „Ćwiczenia” — `<div id="ex"></div>` + `<script src="../assets/js/data/present.js">`
+   + `EG.mountExercises(el, { id, title, intro, items: EG.bank('<slug>') })`
 8. `.site-nav` (← poprzedni / następny →)
 
 Kolejność prev/next: Present Simple → Continuous → Perfect → Perfect
@@ -84,24 +91,66 @@ Dodając nowy czas: dopisz wpis do `TENSES`, `LABELS`, `CAPTIONS`, `DRAW`.
 
 ## `assets/js/exercises.js`
 
-`window.EG.mountExercises(hostEl, { id, title, intro, items })`. `id` =
-klucz `localStorage` (`eng-grammar:<id>`) — **musi być unikalny na stronie**
-(na `porownanie.html` jest kilka bloków, każdy z własnym `id`).
+`window.EG.mountExercises(hostEl, { id, title, intro, items, onSave? })`.
+`id` = klucz `localStorage` (`eng-grammar:<id>`) — **musi być unikalny na
+stronie** (na `porownanie.html` jest kilka bloków, każdy z własnym `id`).
+
+Normalizacja odpowiedzi (`gap`/`transform`/`order`/`cloze`/`listen`): trim,
+lowercase, `’`→`'`, **usunięcie apostrofów** (`I'm` == `im`) i końcowej
+interpunkcji. Warianty w `answers[]` nadal warto podać dla „do not / don't”,
+„have / 've” itp.
 
 Typy `items`:
 
 | type | pola | uwagi |
 |---|---|---|
-| `gap` | `q` (z `___`), `hint?`, `answers[]`, `why`, `ctx?` | porównanie po normalizacji (trim, lowercase, `’`→`'`); podaj warianty z apostrofem i bez |
+| `gap` | `q` (z `___`), `hint?`, `answers[]`, `why`, `ctx?` | jedna luka w zdaniu |
 | `choice` | `q?`, `options[]`, `answer` (indeks), `why`, `ctx?` | klik = od razu ocena |
-| `error` | `sentence`, `wrongIndex` (indeks tokena po podziale na spacje; `-1` = zdanie poprawne), `fix?`, `why`, `ctx?` | **tylko błędy naprawialne wymianą jednego tokena** — nie takie, gdzie trzeba zmienić dwa słowa (np. „am knowing” → „know”). Takie rób jako `choice`. |
-| `contrast` | `a{sentence,meaning}`, `b{sentence,meaning}`, `labels?[]`, `note?` | nieoceniane; blok bez wyniku i bez „Zacznij od nowa”, jeśli wszystkie itemy to `contrast` |
+| `error` | `sentence`, `wrongIndex` (indeks tokena po `split(/\s+/)`; `-1` = zdanie poprawne), `fix?`, `why`, `ctx?` | **tylko błędy naprawialne wymianą jednego tokena** — nie takie, gdzie trzeba zmienić dwa słowa. Takie rób jako `choice`. |
+| `order` | `answer` (poprawne zdanie, **bez** końcowej kropki), `alt?[]`, `pool?[]` (domyślnie słowa z `answer`), `why`, `ctx?` | klocki-słowa; klik dokłada, klik w ułożone cofa |
+| `transform` | `base` (zdanie EN), `instruction` (PL polecenie), `answers[]`, `why` | jak `gap`, ale z pełnym zdaniem wyjściowym |
+| `cloze` | `text` (z `___` × N), `blanks: [{answers[], hint?}]` (długość == liczba `___`), `why`, `ctx?` | jedno „Sprawdź”, per-luka ✓/✗ |
+| `listen` | `sentence`, `mode:'type'\|'choice'`, `options?`, `answer?`, `alt?`, `why`, `ctx?` | ▶ mówi przez `speechSynthesis`; brak głosu → fallback z tekstem |
+| `contrast` | `a{sentence,meaning}`, `b{sentence,meaning}`, `labels?[]`, `note?` | nieoceniane |
 
-Ocena: `gap` + `choice` + `error`. Bank błędów celuje w interferencję PL→EN
-(brak `-s` w 3. os., podwójne oznaczenie po `does`/`doesn't`, brak `be` w
-Continuous, czasowniki stanowe w formie `-ing`, Present Perfect z określonym
-czasem przeszłym, Present Simple/Continuous zamiast Perfect przy `for/since`,
-`since` vs `for`, druga forma zamiast trzeciej po `have/has`).
+Ocena: wszystko poza `contrast`. Bank błędów celuje w interferencję PL→EN
+(brak `-s` w 3. os., podwójne oznaczenie po `does`, brak `be` w Continuous,
+czasowniki stanowe w `-ing`, Present Perfect z określonym czasem przeszłym,
+Present Simple/Continuous zamiast Perfect przy `for/since`, `since` vs `for`,
+druga forma zamiast trzeciej po `have`, szyk w pytaniu i pytaniu zależnym).
+
+### Bank zadań (`EG.registerItems` / `EG.bank` / `EG.bankPick`)
+
+Itemy **nie** są już inline na stronach — mieszkają w `assets/js/data/<modul>.js`,
+który woła `EG.registerItems([ { id, type, tags:[...], ... } ])`. Strona ładuje
+ten plik przed swoim inline `<script>` i montuje wybór:
+
+```js
+EG.mountExercises(el, { id: 'present-perfect', items: EG.bank('present-perfect') });
+EG.mountExercises(el, { id: 'mixed-test', items: EG.bankPick(['ps-01','pp-06', ...]) });
+```
+
+- `id` itemu jest **stabilny na zawsze** — to klucz postępu i powtórki błędów.
+- `tags` — slug czasu (`present-simple`…) albo `mixed`. `EG.bank(tag)` filtruje,
+  `EG.bankPick([...])` wybiera po ID w podanej kolejności.
+- Zmiana treści itemu = OK; zmiana `id` = kasuje czyjś postęp.
+
+### `EG.mountReview(hostEl, { title? })`
+
+Skanuje `localStorage` (prefiks `eng-grammar:`), zbiera `id` itemów z
+`correct: false`, montuje je jako świeży zestaw pod kluczem `eng-grammar:review`.
+Poprawna odpowiedź w powtórce jest **odbijana** do zestawu źródłowego (item
+znika z kolejnej powtórki). Pusty wynik → komunikat zachęcający do ćwiczeń.
+Wymaga, żeby `assets/js/data/*.js` wszystkich modułów były załadowane na
+stronie z powtórką (`cwiczenia.html`).
+
+## `assets/js/reading.js`
+
+`window.EG.mountList(hostEl, { data, facets, search?, render, unit?, listClass?, empty? })`
+— filtrowana lista do stron „do czytania”. `facets: [{ key, label, all, order?, map? }]`
+robi grupę chipów (single-select). `search: ['pole', ...]` dodaje pole
+szukania po podłańcuchu. `render(entry)` zwraca węzeł DOM jednego wiersza.
+Używane przez `bledy.html` (`.museum__row`) i `przyklady.html` (`.bank__row`).
 
 ## Poprawność językowa
 
@@ -131,10 +180,26 @@ zawsze z pełnymi diakrytykami. Nie force-push bez pytania. Przy zmianie w
 - Każdy `<span lang="en">` faktycznie owija tekst angielski; każdy item
   ćwiczenia ma `why`.
 
-## Dodanie kolejnego modułu (np. Past Tenses)
+## Roadmapa modułów (kolejność wg wartości dla Polaka z kalkami)
 
-Nowy folder (`czasy-przeszle/` albo `past/`), strony wg tego samego
-szablonu, nowe kafle w `index.html`, ewentualnie nowa strona porównawcza.
-`timeline.js` rozszerz o nowe `tense`, jeśli oś czasu ma sens dla danego
-czasu. Wpis w `CHANGELOG.md`. Nie przebudowuj istniejących stron „przy
-okazji”.
+1. **Przedimki** (`a/an/the/∅`) — folder `przedimki/`. + widget `annotate.js`
+   (klik w czasownik → notka „dlaczego ten czas”) i teksty z adnotacjami dla
+   Present. + dłuższa historyjka.
+2. **Czasy przeszłe** — Past Simple vs Present Perfect, Past Continuous, Past
+   Perfect. `timeline.js` dostaje nowe warianty `tense`.
+3. **Okresy warunkowe** 0/1/2/3 + mieszane.
+4. **Przyimki** (in/on/at + czasowniki z przyimkami); potem drobne (liczba
+   mnoga / niepoliczalne, `will` vs `going to`).
+
+## Dodanie kolejnego modułu
+
+1. Nowy folder (np. `przedimki/`), strony wg szablonu strony czasu.
+2. **Nowy plik banku** `assets/js/data/<modul>.js` z `EG.registerItems([...])`;
+   `id` z własnym prefiksem (np. `art-01`), `tags` z własnym slugiem.
+   Strony modułu montują przez `EG.bank('<slug>')`.
+3. Dopisz plik banku do `<script>` na `cwiczenia.html`, żeby „Powtórka błędów”
+   widziała jego itemy.
+4. Nowe kafle w `index.html` (sekcja modułu + usuń z „W przygotowaniu”);
+   nowe wpisy zalążkowe w `assets/js/data/bledy.js` i `przyklady.js`.
+5. `timeline.js` — rozszerz o nowe `tense` tylko jeśli oś czasu ma sens.
+6. Wpis w `CHANGELOG.md`. Nie przebudowuj istniejących stron „przy okazji”.

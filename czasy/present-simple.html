@@ -15,6 +15,8 @@
     <a href="../index.html">Spis treści</a>
     <a href="porownanie.html">Porównanie czasów</a>
     <a href="../cwiczenia.html">Ćwiczenia</a>
+    <a href="../bledy.html">Muzeum błędów</a>
+    <a href="../przyklady.html">Bank zdań</a>
   </div>
 </nav>
 
@@ -193,84 +195,13 @@
 
 <script src="../assets/js/timeline.js"></script>
 <script src="../assets/js/exercises.js"></script>
+<script src="../assets/js/data/present.js"></script>
 <script>
 EG.mountExercises(document.getElementById('ex'), {
   id: 'present-simple',
   title: 'Ćwiczenia: Present Simple',
-  intro: 'Odpowiadaj i czytaj wyjaśnienie „dlaczego” także przy dobrych odpowiedziach.',
-  items: [
-    {
-      type: 'gap',
-      ctx: 'Rutyna — gdzie ktoś pracuje.',
-      q: 'She ___ in an office.',
-      hint: '(work)',
-      answers: ['works'],
-      why: 'Trzecia osoba liczby pojedynczej (she) w Present Simple dostaje końcówkę -s: work → works.'
-    },
-    {
-      type: 'gap',
-      ctx: 'Godziny otwarcia z regulaminu muzeum.',
-      q: 'The museum ___ at 9 a.m. on weekdays.',
-      hint: '(open)',
-      answers: ['opens'],
-      why: 'Rozkłady i harmonogramy podajemy w Present Simple, nawet gdy mówią o przyszłości. It → opens.'
-    },
-    {
-      type: 'error',
-      ctx: 'Przeczenie w trzeciej osobie.',
-      sentence: 'He don’t like coffee.',
-      wrongIndex: 1,
-      fix: 'doesn’t',
-      why: 'Trzecia osoba (he) w przeczeniu Present Simple: doesn’t, nie don’t. Czasownik główny „like” zostaje bez -s.'
-    },
-    {
-      type: 'error',
-      ctx: 'Pytanie w trzeciej osobie.',
-      sentence: 'Does she works here?',
-      wrongIndex: 2,
-      fix: 'work',
-      why: '„Does” już niesie trzecią osobę, więc czasownik główny wraca do bezokolicznika: Does she work here?'
-    },
-    {
-      type: 'choice',
-      ctx: 'Ogólna prawda fizyczna, nie chwila.',
-      q: 'Water ___ at 100 degrees Celsius.',
-      options: ['is boiling', 'boils', 'has boiled'],
-      answer: 1,
-      why: 'Prawa natury i ogólne fakty → Present Simple.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Stała umiejętność twojego brata.',
-      q: 'My brother ___ three languages.',
-      options: ['is speaking', 'speaks', 'has been speaking'],
-      answer: 1,
-      why: 'Stała cecha / umiejętność, nie czynność w toku → Present Simple.'
-    },
-    {
-      type: 'gap',
-      ctx: 'Twój nawyk żywieniowy — przeczenie.',
-      q: 'I ___ meat.',
-      hint: '(not / eat)',
-      answers: ['do not eat', 'don’t eat', 'dont eat', "don't eat"],
-      why: 'Przeczenie w pierwszej osobie: don’t + bezokolicznik. „I don’t eat meat.”'
-    },
-    {
-      type: 'choice',
-      ctx: '„Rozumiem, o co ci chodzi” — powiedziane w tej chwili.',
-      q: 'I ___ what you mean.',
-      options: ['am understanding', 'understand'],
-      answer: 1,
-      why: '„understand” to czasownik stanowy — nie występuje w formie continuous, nawet gdy mówisz o teraz.'
-    },
-    {
-      type: 'contrast',
-      a: { sentence: 'She doesn’t drink coffee.', meaning: 'Nigdy / w ogóle — to jej nawyk (albo jego brak).' },
-      b: { sentence: 'She isn’t drinking coffee.', meaning: 'Nie w tej chwili — akurat teraz nie pije (ale normalnie pije).' },
-      labels: ['Present Simple', 'Present Continuous'],
-      note: 'Ta sama forma po polsku („nie pije kawy”), dwa różne znaczenia po angielsku.'
-    }
-  ]
+  intro: 'Odpowiadaj i czytaj wyjaśnienie „dlaczego” także przy dobrych odpowiedziach. Błędy wracają na stronie „Powtórka błędów”.',
+  items: EG.bank('present-simple')
 });
 </script>
 

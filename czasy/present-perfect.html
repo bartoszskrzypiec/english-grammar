@@ -15,6 +15,8 @@
     <a href="../index.html">Spis treści</a>
     <a href="porownanie.html">Porównanie czasów</a>
     <a href="../cwiczenia.html">Ćwiczenia</a>
+    <a href="../bledy.html">Muzeum błędów</a>
+    <a href="../przyklady.html">Bank zdań</a>
   </div>
 </nav>
 
@@ -220,84 +222,13 @@
 
 <script src="../assets/js/timeline.js"></script>
 <script src="../assets/js/exercises.js"></script>
+<script src="../assets/js/data/present.js"></script>
 <script>
 EG.mountExercises(document.getElementById('ex'), {
   id: 'present-perfect',
   title: 'Ćwiczenia: Present Perfect',
   intro: 'Pilnuj granicy z Past Simple: jest podany zamknięty moment w przeszłości? To nie Present Perfect.',
-  items: [
-    {
-      type: 'choice',
-      ctx: 'Pytanie o doświadczenie — kiedykolwiek w życiu, bez podanego kiedy.',
-      q: '___ oysters?',
-      options: ['Did you ever try', 'Have you ever tried', 'Are you ever trying'],
-      answer: 1,
-      why: 'Doświadczenie życiowe, czas nieokreślony → Present Perfect: Have you ever tried…?'
-    },
-    {
-      type: 'choice',
-      ctx: '„last weekend” — miniony, zamknięty czas.',
-      q: 'I ___ that film last weekend.',
-      options: ['have watched', 'watched'],
-      answer: 1,
-      why: '„last weekend” to zamknięty czas przeszły → Past Simple, nie Present Perfect.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Skutek teraz: stoisz pod drzwiami i nie masz jak wejść.',
-      q: 'I ___ my keys.',
-      options: ['have lost', 'lost'],
-      answer: 0,
-      why: 'Liczy się skutek w tej chwili (nie masz kluczy) — nie sam fakt w przeszłości → Present Perfect.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Znajomość zaczęła się dawno i trwa do dziś.',
-      q: 'I ___ her for ten years.',
-      options: ['know', 'have known'],
-      answer: 1,
-      why: 'Stan od przeszłości do teraz z „for/since” → Present Perfect. Po polsku mylący czas teraźniejszy.'
-    },
-    {
-      type: 'gap',
-      ctx: 'Mieszkanie od konkretnego roku, nadal.',
-      q: 'We ___ here since 2015.',
-      hint: '(live)',
-      answers: ['have lived', "'ve lived", 've lived'],
-      why: 'have/has + trzecia forma. „live” jest regularne: lived. „We have lived here since 2015.”'
-    },
-    {
-      type: 'error',
-      ctx: 'Trzecia osoba.',
-      sentence: 'She have finished her work.',
-      wrongIndex: 1,
-      fix: 'has',
-      why: 'he / she / it → has. „She has finished her work.”'
-    },
-    {
-      type: 'error',
-      ctx: 'Sprawdź formę czasownika po „have”.',
-      sentence: 'I have never went to Spain.',
-      wrongIndex: 3,
-      fix: 'gone',
-      why: 'Po have/has idzie trzecia forma: go → gone (albo „been” dla doświadczenia). „went” to druga forma.'
-    },
-    {
-      type: 'error',
-      ctx: 'Znów forma imiesłowu.',
-      sentence: 'He has broke his leg.',
-      wrongIndex: 2,
-      fix: 'broken',
-      why: 'break → broke (Past Simple) → broken (trzecia forma). Po „has” musi być „broken”.'
-    },
-    {
-      type: 'contrast',
-      a: { sentence: 'He’s gone to Paris.', meaning: 'Pojechał i nadal tam jest — nie ma go tutaj.' },
-      b: { sentence: 'He’s been to Paris.', meaning: 'Był i wrócił — albo: ma to w swoim doświadczeniu.' },
-      labels: ['gone', 'been'],
-      note: 'Ta sama konstrukcja, wybór imiesłowu zmienia sens.'
-    }
-  ]
+  items: EG.bank('present-perfect')
 });
 </script>
 

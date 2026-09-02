@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muzeum błędów — English Grammar</title>
+<meta name="description" content="Katalog typowych błędów Polaków w angielskim: źle → dobrze → dlaczego. Filtrowany po kategorii. Rośnie z każdym modułem.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav__brand" href="index.html">English <span>Grammar</span></a>
+  <div class="topnav__links">
+    <a href="index.html">Spis treści</a>
+    <a href="cwiczenia.html">Ćwiczenia</a>
+    <a href="bledy.html" aria-current="page">Muzeum błędów</a>
+    <a href="przyklady.html">Bank zdań</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Do czytania</p>
+  <h1>Muzeum błędów</h1>
+  <p class="lead">
+    Typowe pomyłki, które biorą się z myślenia po polsku. Każdy wpis: wersja
+    błędna, wersja poprawna i krótkie „dlaczego”. Przeglądaj po kategorii —
+    katalog rośnie z każdym nowym modułem.
+  </p>
+</header>
+
+<main class="page">
+  <div id="museum"></div>
+
+  <nav class="site-nav">
+    <a href="index.html">← Spis treści</a>
+    <span class="site-nav__spacer"></span>
+    <a href="przyklady.html">Bank zdań →</a>
+  </nav>
+</main>
+
+<footer>
+  <p>Prywatne materiały do nauki · <a href="index.html">spis treści</a></p>
+</footer>
+
+<script src="assets/js/reading.js"></script>
+<script src="assets/js/data/bledy.js"></script>
+<script>
+(function () {
+  var CAT_ORDER = [
+    'czasy', 'czasowniki stanowe', 'since / for', 'szyk zdania',
+    'liczba mnoga / niepoliczalne', 'przedimki', 'przyimki', 'kalki'
+  ];
+
+  function row(entry) {
+    var el = document.createElement('div');
+    el.className = 'museum__row';
+
+    var cat = document.createElement('p');
+    cat.className = 'museum__cat';
+    cat.textContent = entry.cat;
+    el.appendChild(cat);
+
+    var bad = document.createElement('span');
+    bad.className = 'bad';
+    bad.lang = 'en';
+    bad.textContent = entry.bad;
+    el.appendChild(bad);
+
+    var good = document.createElement('span');
+    good.className = 'good';
+    good.lang = 'en';
+    good.textContent = entry.good;
+    el.appendChild(good);
+
+    var why = document.createElement('p');
+    why.className = 'museum__why';
+    why.textContent = entry.why;
+    el.appendChild(why);
+
+    return el;
+  }
+
+  EG.mountList(document.getElementById('museum'), {
+    data: window.EG_BLEDY,
+    listClass: 'museum',
+    unit: 'błędów',
+    facets: [{ key: 'cat', label: 'Kategoria', all: 'Wszystkie', order: CAT_ORDER }],
+    render: row,
+    empty: 'Brak wpisów w tej kategorii.'
+  });
+})();
+</script>
+
+</body>
+</html>

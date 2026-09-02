@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank zdań — English Grammar</title>
+<meta name="description" content="Ponad sto przykładowych zdań w czterech czasach Present, każde z tłumaczeniem. Filtruj po czasie i zastosowaniu, szukaj po treści.">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav__brand" href="index.html">English <span>Grammar</span></a>
+  <div class="topnav__links">
+    <a href="index.html">Spis treści</a>
+    <a href="cwiczenia.html">Ćwiczenia</a>
+    <a href="bledy.html">Muzeum błędów</a>
+    <a href="przyklady.html" aria-current="page">Bank zdań</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">Do czytania</p>
+  <h1>Bank zdań</h1>
+  <p class="lead">
+    Przykłady do czytania — po jednym zdaniu na sytuację, z tłumaczeniem.
+    Filtruj po czasie i zastosowaniu, albo wpisz słowo, żeby znaleźć zdania,
+    które go zawierają. Dobre na rozgrzewkę przed ćwiczeniami.
+  </p>
+</header>
+
+<main class="page">
+  <div id="bank"></div>
+
+  <nav class="site-nav">
+    <a href="bledy.html">← Muzeum błędów</a>
+    <span class="site-nav__spacer"></span>
+    <a href="cwiczenia.html">Ćwiczenia →</a>
+  </nav>
+</main>
+
+<footer>
+  <p>Prywatne materiały do nauki · <a href="index.html">spis treści</a></p>
+</footer>
+
+<script src="assets/js/reading.js"></script>
+<script src="assets/js/data/przyklady.js"></script>
+<script>
+(function () {
+  var TENSE_ORDER = ['Present Simple', 'Present Continuous', 'Present Perfect', 'Present Perfect Continuous'];
+
+  function row(entry) {
+    var el = document.createElement('div');
+    el.className = 'bank__row';
+
+    var en = document.createElement('p');
+    en.className = 'bank__en';
+    en.lang = 'en';
+    en.textContent = entry.en;
+    el.appendChild(en);
+
+    var pl = document.createElement('p');
+    pl.className = 'bank__pl';
+    pl.textContent = entry.pl;
+    el.appendChild(pl);
+
+    var tag = document.createElement('span');
+    tag.className = 'bank__tag';
+    tag.textContent = entry.tense + ' · ' + entry.use;
+    el.appendChild(tag);
+
+    return el;
+  }
+
+  EG.mountList(document.getElementById('bank'), {
+    data: window.EG_PRZYKLADY,
+    listClass: 'bank',
+    unit: 'zdań',
+    search: ['en', 'pl'],
+    searchLabel: 'Szukaj w zdaniach…',
+    facets: [
+      { key: 'tense', label: 'Czas', all: 'Wszystkie', order: TENSE_ORDER }
+    ],
+    render: row,
+    empty: 'Żadne zdanie nie pasuje do filtrów.'
+  });
+})();
+</script>
+
+</body>
+</html>

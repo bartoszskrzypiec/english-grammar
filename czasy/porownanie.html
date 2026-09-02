@@ -88,6 +88,7 @@
 
 <script src="../assets/js/timeline.js"></script>
 <script src="../assets/js/exercises.js"></script>
+<script src="../assets/js/data/present.js"></script>
 <script>
 EG.mountExercises(document.getElementById('cmp-simple-cont'), {
   id: 'cmp-simple-cont',
@@ -161,81 +162,8 @@ EG.mountExercises(document.getElementById('cmp-since'), {
 EG.mountExercises(document.getElementById('quiz'), {
   id: 'porownanie-quiz',
   title: 'Quiz: wybierz właściwy czas',
-  intro: 'Po każdej odpowiedzi przeczytaj „dlaczego”.',
-  items: [
-    {
-      type: 'choice',
-      ctx: 'Codzienny sposób dojazdu.',
-      q: 'She ___ to work by bike every day.',
-      options: ['goes', 'is going', 'has gone'],
-      answer: 0,
-      why: 'Rutyna, „every day” → Present Simple.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Widzisz to przez okno teraz.',
-      q: 'Look — she ___ down the street!',
-      options: ['runs', 'is running'],
-      answer: 1,
-      why: 'Czynność w tej chwili → Present Continuous.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Zatrudniony od 2018, nadal.',
-      q: 'He ___ for this company since 2018.',
-      options: ['works', 'has worked'],
-      answer: 1,
-      why: '„since 2018” + trwa do teraz → Present Perfect. „He works … since 2018” to błąd.'
-    },
-    {
-      type: 'choice',
-      ctx: '„yesterday” — zamknięty czas przeszły.',
-      q: 'I ___ a great film yesterday.',
-      options: ['have seen', 'saw'],
-      answer: 1,
-      why: 'Określony moment w przeszłości → Past Simple, nie Present Perfect.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Jesteś brudny i zmęczony — długa czynność, dopiero co.',
-      q: 'I’m exhausted — I ___ in the garden all afternoon.',
-      options: ['have worked', 'have been working'],
-      answer: 1,
-      why: 'Nacisk na proces i długość + świeży skutek → Present Perfect Continuous.'
-    },
-    {
-      type: 'choice',
-      ctx: 'Podajesz liczbę zrobionych rzeczy.',
-      q: 'I ___ five emails this morning.',
-      options: ['have been writing', 'have written'],
-      answer: 1,
-      why: 'Ilość / rezultat → Present Perfect Simple.'
-    },
-    {
-      type: 'error',
-      ctx: 'Trzecia osoba, przeczenie.',
-      sentence: 'She don’t like tea.',
-      wrongIndex: 1,
-      fix: 'doesn’t',
-      why: 'he / she / it → doesn’t.'
-    },
-    {
-      type: 'error',
-      ctx: 'Forma czasownika po „have”.',
-      sentence: 'I have went to the shops.',
-      wrongIndex: 2,
-      fix: 'gone',
-      why: 'Po have/has idzie trzecia forma: go → gone.'
-    },
-    {
-      type: 'error',
-      ctx: 'Czasownik be w liczbie mnogiej.',
-      sentence: 'They is watching TV.',
-      wrongIndex: 1,
-      fix: 'are',
-      why: 'they → are.'
-    }
-  ]
+  intro: 'Po każdej odpowiedzi przeczytaj „dlaczego”. Mieszane zdania ze wszystkich czterech czasów.',
+  items: EG.bank('mixed')
 });
 </script>
 

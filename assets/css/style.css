@@ -687,6 +687,69 @@ a.card:hover {
 
 .ex-foot p { margin: 0; font-size: 0.88rem; color: var(--text-muted); }
 
+/* wider text input (transform / listen) */
+.ex-blank--wide { min-width: 16rem; width: 100%; max-width: 30rem; }
+
+/* ---------- Order (rozsypanka) ---------- */
+.answer-line {
+  min-height: 3rem;
+  margin: 0.2rem 0 0.7rem;
+  padding: 0.55rem 0.6rem;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  align-items: center;
+}
+.answer-line.is-correct { border-style: solid; border-color: var(--good); background: var(--good-soft); }
+.answer-line.is-wrong { border-style: solid; border-color: var(--bad); background: var(--bad-soft); }
+.answer-line__ph { color: var(--text-muted); font-size: 0.9rem; font-style: italic; }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.3rem;
+}
+.chip {
+  appearance: none;
+  font: inherit;
+  font-size: 0.98rem;
+  padding: 0.4rem 0.6rem;
+  min-height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+}
+.chip:hover:not(:disabled) { border-color: var(--accent); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.chip.is-used { opacity: 0.25; }
+.chip:disabled { cursor: default; }
+.chip--placed {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- Cloze (tekst z lukami) ---------- */
+.cloze { line-height: 2.2; }
+.cloze__blank {
+  display: inline-block;
+  width: 8rem;
+  min-width: 0;
+  margin: 0 0.1rem;
+  vertical-align: baseline;
+}
+.cloze__blank.is-correct { border-color: var(--good); background: var(--good-soft); }
+.cloze__blank.is-wrong { border-color: var(--bad); background: var(--bad-soft); }
+
+/* ---------- Listen (synteza mowy) ---------- */
+.speak-btn { letter-spacing: 0.02em; }
+
 /* ---------- Contrast pair widget ---------- */
 .contrast {
   margin: 1.5rem 0;
@@ -741,6 +804,123 @@ footer {
 }
 
 footer a { color: var(--text-muted); }
+
+/* ---------- Filtrowana lista (Muzeum błędów, Bank zdań) ---------- */
+.filterbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: flex-start;
+  margin: 1.25rem 0 0.75rem;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.filter-group__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-right: 0.15rem;
+}
+
+.filter-chip {
+  appearance: none;
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.7rem;
+  min-height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.filter-chip:hover { color: var(--text); }
+.filter-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.filter-chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.filter-search {
+  flex: 1 1 12rem;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.7rem;
+  min-height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+.filter-search:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.listing__count {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.listing__empty {
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 1.5rem 0;
+}
+
+/* Muzeum błędów */
+.museum { display: flex; flex-direction: column; gap: 0.9rem; }
+.museum__row {
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--warn);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+  padding: 0.85rem 1rem;
+}
+.museum__cat {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--warn);
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+}
+.museum__row .bad { display: block; margin-bottom: 0.15rem; }
+.museum__row .good { display: block; margin-bottom: 0.4rem; }
+.museum__why { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
+
+/* Bank zdań */
+.bank { display: flex; flex-direction: column; }
+.bank__row {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.bank__row:last-child { border-bottom: 0; }
+.bank__en {
+  margin: 0;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.95rem;
+}
+.bank__pl { margin: 0.15rem 0 0; font-size: 0.9rem; color: var(--text-muted); }
+.bank__tag {
+  display: inline-block;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.05rem 0.5rem;
+  margin-top: 0.3rem;
+}
 
 /* ---------- Form tables: układ kafelkowy na wąskich ekranach ---------- */
 @media (max-width: 620px) {
@@ -833,15 +1013,29 @@ footer a { color: var(--text-muted); }
   .contrast__sentence { font-size: 1rem; }
 
   /* Luka w zdaniu: własny wiersz, pełna szerokość — nie rozpycha linii */
-  .ex-blank {
+  .ex-blank:not(.cloze__blank) {
     display: block;
     width: 100%;
     min-width: 0;
     margin-top: 0.4rem;
     padding: 0.5rem 0.6rem;
   }
+  .ex-blank--wide { max-width: none; }
 
   .ex-q { font-size: 1rem; }
+
+  /* Cloze: luki zostają w linii, ale trochę węższe */
+  .cloze { line-height: 2.4; }
+  .cloze__blank { width: 6.5rem; padding: 0.3rem 0.4rem; }
+
+  /* Rozsypanka: klocki i linia odpowiedzi na pełną szerokość kontenera */
+  .chip { font-size: 0.94rem; }
+  .answer-line { min-height: 2.8rem; }
+
+  /* Filtry: etykieta grupy nad chipami, pole szukania na pełną szerokość */
+  .filterbar { gap: 0.6rem 0.9rem; }
+  .filter-group { width: 100%; }
+  .filter-search { flex-basis: 100%; }
 
   /* Nawigacja prev/next: jedna kolumna, duże pola dotykowe */
   .site-nav { gap: 0.5rem; }
