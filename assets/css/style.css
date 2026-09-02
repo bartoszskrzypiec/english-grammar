@@ -66,12 +66,20 @@ body {
   line-height: 1.65;
   font-size: 17px;
   -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overflow-wrap: break-word;
 }
 
 a { color: var(--accent); }
 a:hover { text-decoration: underline; }
 
 h1, h2, h3 { line-height: 1.25; }
+
+/* Nagłówki nie chowają się pod przyklejoną nawigacją po kliknięciu w kotwicę. */
+:where(h1, h2, h3, [id]) { scroll-margin-top: 4.5rem; }
+
+/* Długie angielskie ciągi (zdania mono, przykłady) nie rozpychają layoutu. */
+[lang="en"] { overflow-wrap: anywhere; }
 
 code {
   background: var(--code-bg);
@@ -387,7 +395,8 @@ a.card:hover {
   color: var(--text-muted);
   font: inherit;
   font-size: 0.85rem;
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.85rem;
+  min-height: 38px;
   cursor: pointer;
   line-height: 1.4;
 }
@@ -404,6 +413,9 @@ a.card:hover {
   outline: 2px solid var(--accent);
   outline-offset: -2px;
 }
+
+/* Wariant przełącznika osi czasu — większe pola dotykowe */
+.seg--wrap button { min-height: 40px; text-align: center; }
 
 /* ---------- Timeline widget ---------- */
 .timeline {
@@ -454,17 +466,18 @@ a.card:hover {
   font-size: 0.9rem;
 }
 
-/* SVG primitives, themed */
+/* SVG primitives, themed. viewBox jest ~1:1 do px (patrz timeline.js), więc
+   te rozmiary to realne piksele na każdym ekranie. */
 .tl-axis { stroke: var(--text-muted); stroke-width: 2; }
 .tl-now { stroke: var(--text); stroke-width: 1.5; stroke-dasharray: 4 4; }
-.tl-label { fill: var(--text-muted); font-size: 12px; font-weight: 700; letter-spacing: 0.04em; }
-.tl-now-label { fill: var(--text); font-size: 12px; font-weight: 700; }
+.tl-label { fill: var(--text-muted); font-size: 13px; font-weight: 700; letter-spacing: 0.03em; }
+.tl-now-label { fill: var(--text); font-size: 13px; font-weight: 700; }
 .tl-mark { fill: var(--accent); }
 .tl-mark-stroke { stroke: var(--accent); fill: none; stroke-width: 3; }
 .tl-band { fill: var(--accent); opacity: 0.16; }
 .tl-band-edge { stroke: var(--accent); stroke-width: 2; fill: none; }
 .tl-ghost { fill: var(--accent); opacity: 0.45; }
-.tl-hint { fill: var(--text-muted); font-size: 11px; font-style: italic; }
+.tl-hint { fill: var(--text-muted); font-size: 12px; font-style: italic; }
 
 .tl-art { transition: opacity 0.18s ease; }
 
@@ -560,7 +573,8 @@ a.card:hover {
   appearance: none;
   text-align: left;
   font: inherit;
-  padding: 0.5rem 0.75rem;
+  padding: 0.65rem 0.8rem;
+  min-height: 44px;
   border: 1px solid var(--border);
   border-radius: 7px;
   background: var(--bg);
@@ -580,17 +594,21 @@ a.card:hover {
 
 /* clickable tokens (error) */
 .ex-tokens {
-  margin: 0.2rem 0 0.6rem;
+  margin: 0.3rem 0 0.7rem;
   font-size: 1.05rem;
-  line-height: 2;
+  line-height: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.25rem;
 }
 
 .ex-token {
   appearance: none;
   font: inherit;
-  border: 1px solid transparent;
-  border-radius: 5px;
-  padding: 0.1rem 0.3rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.5rem;
+  min-height: 40px;
   background: var(--bg-sunken);
   color: var(--text);
   cursor: pointer;
@@ -616,7 +634,8 @@ a.card:hover {
   font: inherit;
   font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.4rem 0.9rem;
+  padding: 0.5rem 1rem;
+  min-height: 40px;
   border: 1px solid var(--accent);
   border-radius: 7px;
   background: var(--accent);
@@ -722,6 +741,113 @@ footer {
 }
 
 footer a { color: var(--text-muted); }
+
+/* ---------- Form tables: układ kafelkowy na wąskich ekranach ---------- */
+@media (max-width: 620px) {
+  .form-table { overflow-x: visible; }
+  .form-table table { min-width: 0; }
+
+  .form-table thead {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .form-table tbody, .form-table tr, .form-table th, .form-table td { display: block; }
+
+  .form-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    padding: 0.55rem 0;
+  }
+  .form-table tbody tr:last-child { border-bottom: 0; }
+
+  .form-table tbody tr > th:first-child {
+    border: 0;
+    padding: 0.1rem 0.9rem 0.4rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    background: transparent;
+  }
+
+  .form-table td {
+    border: 0;
+    padding: 0.15rem 0.9rem;
+  }
+
+  .form-table td[data-col]:not([data-col=""])::before {
+    content: attr(data-col);
+    display: block;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin: 0.25rem 0 0.05rem;
+  }
+}
+
+/* ---------- Ogólne dopasowanie do telefonu ---------- */
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+
+  .topnav { padding: 0.7rem 1rem; gap: 0.5rem 1rem; }
+  .topnav__links { gap: 0.5rem 1rem; }
+  .topnav__links a { padding: 0.25rem 0; }
+
+  .hero { padding: 1.75rem 1.1rem 0.75rem; }
+  .hero h1 { font-size: 1.55rem; }
+  .lead { font-size: 1.02rem; }
+
+  .page { padding: 0.5rem 1.1rem 3rem; }
+  .page h2 { font-size: 1.22rem; margin-top: 2.25rem; }
+  .page h3 { font-size: 1.02rem; }
+
+  footer { padding: 1.5rem 1.1rem 3rem; }
+
+  .card { padding: 1rem; }
+  .card-grid { gap: 0.8rem; }
+
+  .rule, .pitfall { padding: 0.8rem 0.9rem; margin: 1.2rem 0; }
+
+  .eg { padding: 0.65rem 0.8rem; }
+
+  /* Widgety: mniejszy wewnętrzny margines, pasek nagłówka w pionie */
+  .timeline, .exercise, .contrast { margin-left: 0; margin-right: 0; }
+  .timeline__bar { flex-direction: column; align-items: stretch; gap: 0.6rem; padding: 0.7rem 0.9rem; }
+  .timeline__stage { padding: 0.4rem 0.5rem 0; }
+  .timeline__caption { padding: 0.75rem 0.9rem 0.9rem; }
+
+  /* Przełącznik czasów: pełna szerokość, 2×2 */
+  .seg--wrap { display: flex; width: 100%; flex-wrap: wrap; }
+  .seg--wrap button { flex: 1 1 42%; }
+  .seg--wrap button:nth-child(n + 3) { border-top: 1px solid var(--border); }
+
+  .exercise__head { padding: 0.75rem 0.9rem; }
+  .ex-item { padding: 0.9rem 0.9rem; }
+  .ex-foot { padding: 0.75rem 0.9rem; }
+  .contrast { padding: 0.9rem; }
+  .contrast__sentence { font-size: 1rem; }
+
+  /* Luka w zdaniu: własny wiersz, pełna szerokość — nie rozpycha linii */
+  .ex-blank {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    margin-top: 0.4rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .ex-q { font-size: 1rem; }
+
+  /* Nawigacja prev/next: jedna kolumna, duże pola dotykowe */
+  .site-nav { gap: 0.5rem; }
+  .site-nav a { display: block; padding: 0.35rem 0; }
+  .site-nav .site-nav__spacer { display: none; }
+}
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
